@@ -1,2 +1,22 @@
 <p>stepper works!</p>
-<ng-content />
+
+<div class="stepper-header">
+  @for(step of steps; track step; let i = $index, isLast = $last) {
+  <div
+    class="step-header"
+    [ngClass]="{
+      'unreached-step': currentIndex < i,
+      'current-step': currentIndex === i
+    }"
+  >
+    <span *ngIf="showStepNumbers" class="step-number">{{ i + 1 }}</span>
+    {{ step.label }}
+  </div>
+  @if(!isLast){
+  <div class="stepper-horizontal-line"></div>
+  } }
+</div>
+
+@if(_currentStep) {
+<ng-container *ngTemplateOutlet="_currentStep.content"></ng-container>
+}

@@ -1,0 +1,51 @@
+.stepper-header {
+  display: flex;
+  justify-content: space-evenly;
+  direction: rtl;
+
+  .step-header {
+    color: black;
+    display: flex;
+    text-align: center;
+    gap: 1vh;
+    flex-direction: column;
+    place-items: center;
+
+    .step-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 2.5;
+      padding: 8px;
+      text-align: center;
+      border-radius: 50%;
+      border: 2px solid #023fa9;
+    }
+  }
+
+  .current-step {
+    .step-number {
+      color: #eee;
+      background-color: #023fa9;
+    }
+  }
+
+  .unreached-step {
+    color: #999;
+
+    .step-number {
+      border: 2px solid #4887f585;
+    }
+  }
+
+  .stepper-horizontal-line {
+    align-self: center;
+    border-top-width: 1px;
+    border-top-style: solid;
+    flex: auto;
+    height: 0;
+    margin: 0 16px 20px;
+    min-width: 32px;
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+}

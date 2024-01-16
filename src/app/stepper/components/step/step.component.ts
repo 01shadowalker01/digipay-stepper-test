@@ -1,12 +1,26 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  TemplateRef,
+  ViewChild,
+  forwardRef,
+} from '@angular/core';
 import { Step } from '../../interfaces/step';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-step',
-  templateUrl: './step.component.html',
-  styleUrl: './step.component.scss',
+  template: '<ng-template><ng-content /></ng-template>',
   providers: [{ provide: Step, useExisting: forwardRef(() => StepComponent) }],
 })
 export class StepComponent implements Step {
   @Input() label!: string;
+  @Input() stepControl!: AbstractControl;
+
+  @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any> | null =
+    null;
+
+  isValid(): boolean {
+    return this.stepControl.valid;
+  }
 }
