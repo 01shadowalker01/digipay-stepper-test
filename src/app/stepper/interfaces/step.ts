@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 
 export abstract class Step {
   label!: string;
-  stepControl!: AbstractControl;
+  stepControl!: AbstractControl | null;
   content: TemplateRef<any> | null = null;
 
   abstract isValid(): boolean;

@@ -1,1 +1,17 @@
-<p>user-info-form works!</p>
+<app-stepper>
+  <app-step label="Info" [stepControl]="formControls.get('personalInfo')">
+    <form [formGroup]="userInfoForm.controls['personalInfo']"></form>
+    <button appStepperNext>next</button>
+    <button appStepperPrevious>previous</button>
+  </app-step>
+  <app-step label="Contact">
+    <p>step 2</p>
+    <button appStepperNext>next</button>
+    <button appStepperPrevious>previous</button>
+  </app-step>
+  <app-step label="Address" [stepControl]="formControls['contactInfo']">
+    <form [formGroup]="formControls.get('contactInfo')"></form>
+    <button appStepperNext>next</button>
+    <button appStepperPrevious>previous</button>
+  </app-step>
+</app-stepper>

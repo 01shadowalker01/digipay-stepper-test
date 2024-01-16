@@ -15,12 +15,12 @@ import { AbstractControl } from '@angular/forms';
 })
 export class StepComponent implements Step {
   @Input() label!: string;
-  @Input() stepControl!: AbstractControl;
+  @Input() stepControl!: AbstractControl | null;
 
   @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any> | null =
     null;
 
   isValid(): boolean {
-    return this.stepControl.valid;
+    return !!this.stepControl?.valid;
   }
 }
