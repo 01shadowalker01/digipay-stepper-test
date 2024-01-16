@@ -3,6 +3,7 @@ import { StepperModule } from '../stepper/stepper.module';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -16,32 +17,30 @@ import {
   styleUrl: './user-info-form.component.scss',
 })
 export class UserInfoFormComponent {
-  userInfoForm!: FormGroup;
+  personalInfoForm!: FormGroup;
+  documentImageFormControl!: FormControl;
+  contactInfoForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.buildForm();
+    this.buildForms();
   }
 
-  public get formControls(): FormGroup {
-    return this.userInfoForm.controls as unknown as FormGroup;
-  }
+  buildForms() {
+    this.personalInfoForm = this.formBuilder.nonNullable.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      nationalCode: ['', Validators.required],
+    });
 
-  buildForm() {
-    this.userInfoForm = this.formBuilder.nonNullable.group({
-      personalInfo: this.formBuilder.nonNullable.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        nationalCode: ['', Validators.required],
-      }),
-      documentImage: this.formBuilder.nonNullable.control(
-        null,
-        Validators.required
-      ),
-      contactInfo: this.formBuilder.group({
-        province: ['', Validators.required],
-        city: ['', Validators.required],
-        address: ['', Validators.required],
-      }),
+    this.documentImageFormControl = this.formBuilder.nonNullable.control(
+      null,
+      Validators.required
+    );
+
+    this.contactInfoForm = this.formBuilder.group({
+      province: ['', Validators.required],
+      city: ['', Validators.required],
+      address: ['', Validators.required],
     });
   }
 }

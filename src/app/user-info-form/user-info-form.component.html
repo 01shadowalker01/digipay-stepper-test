@@ -1,17 +1,28 @@
 <app-stepper>
-  <app-step label="Info" [stepControl]="formControls.get('personalInfo')">
-    <form [formGroup]="userInfoForm.controls['personalInfo']"></form>
-    <button appStepperNext>next</button>
-    <button appStepperPrevious>previous</button>
+  <app-step label="اطلاعات فردی" [stepControl]="personalInfoForm">
+    <form [formGroup]="personalInfoForm">
+      <input formControlName="firstName" />
+      <input formControlName="lastName" />
+      <input formControlName="nationalCode" />
+    </form>
+    <button appStepperNext>بعدی</button>
+    <button appStepperPrevious>قبلی</button>
   </app-step>
-  <app-step label="Contact">
+  <app-step label="آپلود مدارک">
     <p>step 2</p>
-    <button appStepperNext>next</button>
-    <button appStepperPrevious>previous</button>
+    <button appStepperNext>بعدی</button>
+    <button appStepperPrevious>قبلی</button>
   </app-step>
-  <app-step label="Address" [stepControl]="formControls['contactInfo']">
-    <form [formGroup]="formControls.get('contactInfo')"></form>
-    <button appStepperNext>next</button>
-    <button appStepperPrevious>previous</button>
+  <app-step label="اطلاعات تماس" [stepControl]="contactInfoForm">
+    <form [formGroup]="contactInfoForm">
+      <input formControlName="province" />
+      <input formControlName="city" />
+      <textarea formControlName="address" rows="3"></textarea>
+    </form>
+    <button appStepperNext>بعدی</button>
+    <button appStepperPrevious>قبلی</button>
+  </app-step>
+  <app-step label="نمایش کلی اطلاعات">
+    <button appStepperPrevious>قبلی</button>
   </app-step>
 </app-stepper>
