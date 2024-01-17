@@ -1,5 +1,3 @@
-<p>stepper works!</p>
-
 <div class="stepper-header">
   @for(step of steps; track step; let i = $index, isLast = $last) {
   <div
@@ -10,7 +8,7 @@
     }"
   >
     <span *ngIf="showStepNumbers" class="step-number">{{ i + 1 }}</span>
-    {{ step.label }}
+    <span class="step-label">{{ step.label }} </span>
   </div>
   @if(!isLast){
   <div class="stepper-horizontal-line"></div>

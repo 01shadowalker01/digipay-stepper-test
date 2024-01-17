@@ -1,0 +1,6 @@
+<ng-content />
+
+@if (!fieldControl?.pristine) { @for (err of fieldControl?.errors |
+toErrorMessages; track $index) {
+<p class="text-red-500">{{ err }}</p>
+} }

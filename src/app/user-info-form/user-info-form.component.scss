@@ -1,0 +1,61 @@
+.step-content {
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+  height: 65vh;
+  padding: 5vh 0;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+  }
+}
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10vw;
+  margin-bottom: 5vh;
+}
+
+.step-content .uploader-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+}
+
+.last-step-content {
+  align-items: start;
+  justify-content: start;
+  padding: 8vh 10vw;
+}
+
+.last-step-action-buttons {
+  justify-content: end;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .text-field {
+    @apply bg-white w-full mb-4 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none;
+  }
+}
+@layer components {
+  .field-label {
+    @apply block text-gray-700 text-sm font-bold mb-2;
+  }
+}
+@layer components {
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded;
+  }
+}
+@layer components {
+  .file-input {
+    @apply block block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400;
+  }
+}

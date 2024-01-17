@@ -23,7 +23,7 @@ export class StepperComponent implements Stepper {
   @ContentChildren(Step) steps!: QueryList<Step>;
 
   @Input() showStepNumbers: boolean = true;
-  @Input() currentIndex: number = 1;
+  @Input() currentIndex: number = 0;
 
   @Output() indexChanged = new EventEmitter<number>();
 
@@ -36,12 +36,18 @@ export class StepperComponent implements Stepper {
   }
 
   next() {
+    if (!this._currentStep?.isValid()) return;
+
     this.currentIndex = Math.min(this.currentIndex + 1, this.steps.length - 1);
     this.updateCurrentStep();
   }
   previous() {
     this.currentIndex = Math.max(this.currentIndex - 1, 0);
     this.updateCurrentStep();
+  }
+
+  isValid(): boolean {
+    return this._currentStep?.isValid() || false;
   }
 
   private updateCurrentStep() {

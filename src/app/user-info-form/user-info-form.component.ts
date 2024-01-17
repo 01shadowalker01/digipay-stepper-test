@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { StepperModule } from '../stepper/stepper.module';
 import {
   AbstractControl,
@@ -8,11 +8,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { UserInfoSummaryComponent } from '../user-info-summary/user-info-summary.component';
+import { validateNationalCode } from './validators';
+import { JsonPipe } from '@angular/common';
+import { FieldWrapperComponent } from '../field-wrapper/field-wrapper.component';
 
 @Component({
   selector: 'app-user-info-form',
   standalone: true,
-  imports: [StepperModule, ReactiveFormsModule],
+  imports: [
+    StepperModule,
+    ReactiveFormsModule,
+    UserInfoSummaryComponent,
+    JsonPipe,
+    FieldWrapperComponent,
+  ],
   templateUrl: './user-info-form.component.html',
   styleUrl: './user-info-form.component.scss',
 })
@@ -29,7 +39,7 @@ export class UserInfoFormComponent {
     this.personalInfoForm = this.formBuilder.nonNullable.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      nationalCode: ['', Validators.required],
+      nationalCode: ['', [Validators.required, validateNationalCode]],
     });
 
     this.documentImageFormControl = this.formBuilder.nonNullable.control(

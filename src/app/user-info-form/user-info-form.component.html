@@ -1,28 +1,125 @@
 <app-stepper>
   <app-step label="اطلاعات فردی" [stepControl]="personalInfoForm">
-    <form [formGroup]="personalInfoForm">
-      <input formControlName="firstName" />
-      <input formControlName="lastName" />
-      <input formControlName="nationalCode" />
-    </form>
-    <button appStepperNext>بعدی</button>
-    <button appStepperPrevious>قبلی</button>
+    <div class="step-content">
+      <form [formGroup]="personalInfoForm">
+        <app-field-wrapper [fieldControl]="personalInfoForm.get('firstName')">
+          <label class="field-label" for="firstName"> نام </label>
+          <input
+            class="text-field focus:shadow-outline"
+            id="firstName"
+            formControlName="firstName"
+            placeholder="نام"
+          />
+        </app-field-wrapper>
+
+        <app-field-wrapper [fieldControl]="personalInfoForm.get('lastName')">
+          <label class="field-label" for="lastName"> نام خانوادگی </label>
+          <input
+            class="text-field focus:shadow-outline"
+            id="lastName"
+            formControlName="lastName"
+            placeholder="نام خانوادگی"
+          />
+        </app-field-wrapper>
+
+        <app-field-wrapper
+          [tempRef]="nationalCode"
+          [fieldControl]="personalInfoForm.get('nationalCode')"
+        >
+          <label class="field-label" for="nationalCode"> کد ملی </label>
+          <input
+            #nationalCode
+            class="text-field focus:shadow-outline"
+            id="nationalCode"
+            formControlName="nationalCode"
+            placeholder="کد ملی"
+          />
+        </app-field-wrapper>
+      </form>
+    </div>
+    <div class="action-buttons">
+      <button appStepperNext class="btn-primary">بعدی</button>
+      <button appStepperPrevious class="btn-primary">قبلی</button>
+    </div>
   </app-step>
-  <app-step label="آپلود مدارک">
-    <p>step 2</p>
-    <button appStepperNext>بعدی</button>
-    <button appStepperPrevious>قبلی</button>
+  <app-step label="آپلود مدارک" [stepControl]="documentImageFormControl">
+    <div class="step-content">
+      <div class="uploader-step">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          for="file_input"
+        >
+          بارگذاری مدارک
+        </label>
+        <input
+          class="file-input"
+          id="file_input"
+          [formControl]="documentImageFormControl"
+          type="file"
+        />
+        <p
+          class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+          id="file_input_help"
+        >
+          SVG, PNG, JPG یا GIF.
+        </p>
+      </div>
+    </div>
+    <div class="action-buttons">
+      <button appStepperNext class="btn-primary">بعدی</button>
+      <button appStepperPrevious class="btn-primary">قبلی</button>
+    </div>
   </app-step>
   <app-step label="اطلاعات تماس" [stepControl]="contactInfoForm">
-    <form [formGroup]="contactInfoForm">
-      <input formControlName="province" />
-      <input formControlName="city" />
-      <textarea formControlName="address" rows="3"></textarea>
-    </form>
-    <button appStepperNext>بعدی</button>
-    <button appStepperPrevious>قبلی</button>
+    <div class="step-content">
+      <form [formGroup]="contactInfoForm">
+        <app-field-wrapper [fieldControl]="personalInfoForm.get('province')">
+          <label class="field-label" for="province"> استان </label>
+          <input
+            class="text-field focus:shadow-outline"
+            id="province"
+            formControlName="province"
+            placeholder="استان"
+          />
+        </app-field-wrapper>
+
+        <app-field-wrapper [fieldControl]="personalInfoForm.get('city')">
+          <label class="field-label" for="city"> شهر </label>
+          <input
+            class="text-field focus:shadow-outline"
+            id="city"
+            formControlName="city"
+            placeholder="شهر"
+          />
+        </app-field-wrapper>
+
+        <app-field-wrapper [fieldControl]="personalInfoForm.get('address')">
+          <label class="field-label" for="address"> نشانی </label>
+          <textarea
+            formControlName="address"
+            id="address"
+            placeholder="نشانی"
+            rows="3"
+            class="text-field focus:shadow-outline"
+          ></textarea>
+        </app-field-wrapper>
+      </form>
+    </div>
+    <div class="action-buttons">
+      <button appStepperNext class="btn-primary">بعدی</button>
+      <button appStepperPrevious class="btn-primary">قبلی</button>
+    </div>
   </app-step>
   <app-step label="نمایش کلی اطلاعات">
-    <button appStepperPrevious>قبلی</button>
+    <div class="step-content last-step-content">
+      <app-user-info-summary
+        [personalInfo]="personalInfoForm.value"
+        [contactInfo]="contactInfoForm.value"
+        [documentImage]="documentImageFormControl.value"
+      />
+    </div>
+    <div class="action-buttons last-step-action-buttons">
+      <button appStepperPrevious class="btn-primary">قبلی</button>
+    </div>
   </app-step>
 </app-stepper>
