@@ -1,8 +1,11 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { BASE_URL_TOKEN } from './tokens';
+import { DEFAULT_CONFIG } from './default.config';
+import { HttpClientModule } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)]
+  providers: [
+    importProvidersFrom(HttpClientModule),
+    { provide: BASE_URL_TOKEN, useValue: DEFAULT_CONFIG.baseUrl },
+  ],
 };

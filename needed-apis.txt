@@ -1,0 +1,5 @@
+/upload
+
+GET user-info/:id
+POST user-info
+POST user-info/:id

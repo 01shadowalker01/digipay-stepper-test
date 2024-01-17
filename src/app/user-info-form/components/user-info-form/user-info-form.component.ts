@@ -13,6 +13,7 @@ import { validateNationalCode } from './validators';
 import { JsonPipe } from '@angular/common';
 import { FieldWrapperComponent } from '../../../field-wrapper/field-wrapper.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserInfoService } from '../../services/user-info.service';
 
 @Component({
   selector: 'app-user-info-form',
@@ -33,7 +34,10 @@ export class UserInfoFormComponent {
   contactInfoForm!: FormGroup;
   imagePreviewSrc: string = '';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private userInfoService: UserInfoService
+  ) {
     this.buildForms();
   }
 
@@ -69,4 +73,12 @@ export class UserInfoFormComponent {
   }
 
   onStepperIndexChange() {}
+
+  onSubmit() {
+    this.userInfoService.submitUserInfo({
+      personalInfo: this.personalInfoForm.value,
+      documentImage: this.documentImageFormControl.value,
+      contactInfo: this.contactInfoForm.value,
+    });
+  }
 }

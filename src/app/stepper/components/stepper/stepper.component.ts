@@ -23,7 +23,7 @@ export class StepperComponent implements Stepper {
   @ContentChildren(Step) steps!: QueryList<Step>;
 
   @Input() showStepNumbers: boolean = true;
-  @Input() currentIndex: number = 0;
+  @Input() currentIndex: number = 3;
 
   @Output() indexChanged = new EventEmitter<number>();
 

@@ -123,7 +123,14 @@
         [contactInfo]="contactInfoForm.value"
       />
     </div>
-    <div class="action-buttons last-step-action-buttons">
+    <div class="action-buttons">
+      <button
+        class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-7 rounded"
+        type="submit"
+        (click)="onSubmit()"
+      >
+        ارسال
+      </button>
       <button appStepperPrevious class="btn-primary">قبلی</button>
     </div>
   </app-step>
