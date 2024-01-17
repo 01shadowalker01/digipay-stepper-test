@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { StepperModule } from '../stepper/stepper.module';
+import { StepperModule } from '../../../stepper/stepper.module';
 import {
   AbstractControl,
   FormBuilder,
@@ -11,7 +11,7 @@ import {
 import { UserInfoSummaryComponent } from '../user-info-summary/user-info-summary.component';
 import { validateNationalCode } from './validators';
 import { JsonPipe } from '@angular/common';
-import { FieldWrapperComponent } from '../field-wrapper/field-wrapper.component';
+import { FieldWrapperComponent } from '../../../field-wrapper/field-wrapper.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({

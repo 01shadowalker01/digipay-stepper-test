@@ -1,5 +1,5 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { FormField } from '../types/form-field';
+import { FormField } from '../../../types/form-field';
 
 export interface UserInfo {
   personalInfo: PersonalInfo;
