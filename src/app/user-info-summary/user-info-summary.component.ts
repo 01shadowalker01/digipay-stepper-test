@@ -11,6 +11,6 @@ import { ContactInfo, PersonalInfo } from '../user-info-form/user-info';
 })
 export class UserInfoSummaryComponent {
   @Input() personalInfo!: PersonalInfo;
-  @Input() documentImage!: File | null;
+  @Input() documentImageSrc!: string;
   @Input() contactInfo!: ContactInfo;
 }

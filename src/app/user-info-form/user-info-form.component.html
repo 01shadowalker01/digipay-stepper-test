@@ -1,4 +1,4 @@
-<app-stepper>
+<app-stepper (indexChanged)="onStepperIndexChange()">
   <app-step label="اطلاعات فردی" [stepControl]="personalInfoForm">
     <div class="step-content">
       <form [formGroup]="personalInfoForm">
@@ -56,6 +56,7 @@
           id="file_input"
           [formControl]="documentImageFormControl"
           type="file"
+          (change)="onSelect($event)"
         />
         <p
           class="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -63,6 +64,9 @@
         >
           SVG, PNG, JPG یا GIF.
         </p>
+        @if(imagePreviewSrc) {
+        <img [src]="imagePreviewSrc" alt="image preview" />
+        }
       </div>
     </div>
     <div class="action-buttons">
@@ -113,9 +117,10 @@
   <app-step label="نمایش کلی اطلاعات">
     <div class="step-content last-step-content">
       <app-user-info-summary
+        class="w-full"
         [personalInfo]="personalInfoForm.value"
+        [documentImageSrc]="imagePreviewSrc"
         [contactInfo]="contactInfoForm.value"
-        [documentImage]="documentImageFormControl.value"
       />
     </div>
     <div class="action-buttons last-step-action-buttons">

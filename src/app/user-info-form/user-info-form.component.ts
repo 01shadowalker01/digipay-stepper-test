@@ -12,6 +12,7 @@ import { UserInfoSummaryComponent } from '../user-info-summary/user-info-summary
 import { validateNationalCode } from './validators';
 import { JsonPipe } from '@angular/common';
 import { FieldWrapperComponent } from '../field-wrapper/field-wrapper.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-info-form',
@@ -30,6 +31,7 @@ export class UserInfoFormComponent {
   personalInfoForm!: FormGroup;
   documentImageFormControl!: FormControl;
   contactInfoForm!: FormGroup;
+  imagePreviewSrc: string = '';
 
   constructor(private formBuilder: FormBuilder) {
     this.buildForms();
@@ -53,4 +55,18 @@ export class UserInfoFormComponent {
       address: ['', Validators.required],
     });
   }
+
+  onSelect(event: Event) {
+    const { files } = event?.target as HTMLInputElement;
+    if (!files) return;
+
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreviewSrc = reader.result?.toString() || '';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onStepperIndexChange() {}
 }
