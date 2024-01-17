@@ -1,7 +1,6 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { StepperModule } from '../../../stepper/stepper.module';
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -12,8 +11,9 @@ import { UserInfoSummaryComponent } from '../user-info-summary/user-info-summary
 import { validateNationalCode } from './validators';
 import { JsonPipe } from '@angular/common';
 import { FieldWrapperComponent } from '../../../field-wrapper/field-wrapper.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserInfoService } from '../../services/user-info.service';
+import { CacheManagerService } from '../../../services/cache-manager.service';
+import { UserInfo } from './user-info';
 
 @Component({
   selector: 'app-user-info-form',
@@ -28,17 +28,23 @@ import { UserInfoService } from '../../services/user-info.service';
   templateUrl: './user-info-form.component.html',
   styleUrl: './user-info-form.component.scss',
 })
-export class UserInfoFormComponent {
+export class UserInfoFormComponent implements OnInit {
   personalInfoForm!: FormGroup;
   documentImageFormControl!: FormControl;
   contactInfoForm!: FormGroup;
   imagePreviewSrc: string = '';
+  currentStepIndex = 0;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userInfoService: UserInfoService
+    private userInfoService: UserInfoService,
+    private cacheManagerService: CacheManagerService
   ) {
     this.buildForms();
+  }
+
+  ngOnInit(): void {
+    this.setCachedData();
   }
 
   buildForms() {
@@ -60,6 +66,16 @@ export class UserInfoFormComponent {
     });
   }
 
+  setCachedData() {
+    const { index, formValues } = this.cacheManagerService.getState();
+    this.currentStepIndex = index;
+
+    if (!formValues) return;
+
+    this.personalInfoForm.setValue(formValues.personalInfo);
+    this.contactInfoForm.setValue(formValues.contactInfo);
+  }
+
   onSelect(event: Event) {
     const { files } = event?.target as HTMLInputElement;
     if (!files) return;
@@ -72,13 +88,25 @@ export class UserInfoFormComponent {
     reader.readAsDataURL(file);
   }
 
-  onStepperIndexChange() {}
-
   onSubmit() {
-    this.userInfoService.submitUserInfo({
+    this.userInfoService.submitUserInfo(this.getUserInfo());
+  }
+
+  private getUserInfo(): UserInfo {
+    return {
       personalInfo: this.personalInfoForm.value,
       documentImage: this.documentImageFormControl.value,
       contactInfo: this.contactInfoForm.value,
-    });
+    };
   }
+
+  @HostListener('window:beforeunload')
+  beforeUnloadHandler() {
+    this.cacheManagerService.setCurrentState(
+      this.currentStepIndex,
+      this.getUserInfo()
+    );
+  }
+
+  ngOnDestroy() {}
 }

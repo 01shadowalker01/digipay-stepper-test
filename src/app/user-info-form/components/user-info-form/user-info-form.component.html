@@ -1,4 +1,7 @@
-<app-stepper (indexChanged)="onStepperIndexChange()">
+<app-stepper
+  [currentIndex]="currentStepIndex"
+  (indexChanged)="currentStepIndex = $event"
+>
   <app-step label="اطلاعات فردی" [stepControl]="personalInfoForm">
     <div class="step-content">
       <form [formGroup]="personalInfoForm">
